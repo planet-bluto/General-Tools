@@ -6,6 +6,25 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
+var commands = {}
+class ConsoleCommand {
+  constructor(title, desc, args, func) {
+    this.title = title
+    this.desc = desc
+    this.args = args
+    this.func = func
+    commands[title] = this
+  }
+
+  exec(args) {
+    this.func(args)
+  }
+}
+
+new ConsoleCommand("ping", "Pongs a ping", ["<none>"], function (args) {
+  print("Pong!")
+})
+
 new ConsoleCommand("uri", "Converts strings from and to uri format", ["[encode|decode|com-encode|com-decode]", "string..."], function (args) {
 	var mode = args.shift()
     switch (mode) {
@@ -33,5 +52,16 @@ new ConsoleCommand("coin", "Flips a coin and prints heads or tails", ["<none>"],
     print("Heads !")
   } else {
     print("Tails !")
+  }
+})
+
+process.stdin.on("data", data => {
+  var input = data.toString().trim()
+  var args = input.split(" ")
+  var cmd = args.shift()
+  if (commands[cmd] != null) {
+    commands[cmd].exec(args)
+  } else {
+    print("command doesn't exist??")
   }
 })
