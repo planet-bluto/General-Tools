@@ -1,0 +1,12 @@
+{
+  "name": "general-cli-tool",
+  "version": "1.0.0",
+  "description": "TOOLS I USE, FUCK ALL OF YOU",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "author": "BluAxolotl",
+  "license": "ISC",
+  "dependencies": {}
+}
